@@ -1,0 +1,60 @@
+version: 2.1
+jobs:
+  build-and-test:
+    working_directory: ~/project
+    docker:
+      - image: circleci/node:10
+    steps:
+      - checkout
+      - run:
+          name: Install dependencies
+          command: npm install
+      - run: npm run test
+      - run: npm run lint
+  ## UNCOMMENT THIS
+  # deploy-production:
+  #   working_directory: ~/project
+  #   docker:
+  #     - image: circleci/node:10
+  #   steps:
+  #     - checkout
+  #     - run:
+  #         name: Install dependencies
+  #         command: |
+  #           sudo npm i -g serverless
+  #           npm install
+  #     - run:
+  #         name: Deploy production application
+  #         command: serverless deploy --stage prod
+  # deploy-development:
+  #   working_directory: ~/project
+  #   docker:
+  #     - image: circleci/node:10
+  #   steps:
+  #     - checkout
+  #     - run:
+  #         name: Install dependencies
+  #         command: |
+  #           sudo npm i -g serverless
+  #           npm install
+  #     - run:
+  #         name: Deploy development application
+  #         command: serverless deploy --stage dev
+workflows:
+  version: 2
+  build-deploy:
+    jobs:
+      - build-and-test
+      ## UNCOMMENT THIS
+      # - deploy-production:
+      #     requires:
+      #       - build-and-test
+      #     filters:
+      #       branches:
+      #         only: master
+      # - deploy-development:
+      #     requires:
+      #       - build-and-test
+      #     filters:
+      #       branches:
+      #         only: development

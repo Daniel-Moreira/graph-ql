@@ -1,0 +1,44 @@
+service: graphql-server
+
+plugins:
+  - serverless-offline
+
+package:
+  individually: true
+  exclude:
+    - node_modules/aws-sdk/**
+    - src/__mocks__/**
+    - src/__tests__/**
+
+provider:
+  name: aws
+  runtime: nodejs10.x
+  stage: dev
+  region: us-east-1
+  versionLambda: false
+  deploymentBucket:
+    name: eos-serverless-stacks
+    serverSideEncryption: AES256
+  deploymentPrefix: ${self:service}-${opt:stage, self:provider.stage}
+
+  environment:
+    SERVICE: ${self:service}-${opt:stage, self:provider.stage}
+    REGION: ${self:provider.region}
+    DYNAMO_TABLE: eos-job-storage-${opt:stage, self:provider.stage}
+
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+      - lambda:InvokeFunction
+      Resource: ["*"]
+
+functions:
+  graphql:
+    handler: src/interface.graphqlHandler
+    events:
+    - http:
+        path: graphql
+        method: post
+    - http:
+        path: graphql
+        method: get

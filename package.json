@@ -1,0 +1,40 @@
+{
+  "name": "package-name",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "test": "node_modules/jest/bin/jest.js --coverage",
+    "lint": "node_modules/eslint/bin/eslint.js ./src/__tests__/**/*.*",
+    "start": "sls offline"
+  },
+  "pre-commit": [
+    "lint",
+    "test"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/escaletech/lambda-template.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/aws-sdk": "^2.7.0",
+    "@types/jest": "^24.0.15",
+    "eslint": "^6.1.0",
+    "eslint-config-standard": "^13.0.1",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-node": "^9.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.0",
+    "jest": "^24.8.0",
+    "pre-commit": "^1.2.2",
+    "serverless-offline": "^5.8.0"
+  },
+  "dependencies": {
+    "apollo-server-lambda": "^2.9.6",
+    "aws-sdk": "^2.499.0",
+    "got": "^9.6.0",
+    "graphql": "^14.5.8",
+    "lodash": "^4.17.15"
+  }
+}
