@@ -33,7 +33,7 @@
   "dependencies": {
     "apollo-server-lambda": "^2.9.6",
     "aws-sdk": "^2.499.0",
-    "got": "^9.6.0",
+    "got": "^11.8.5",
     "graphql": "^14.5.8",
     "lodash": "^4.17.15"
   }
